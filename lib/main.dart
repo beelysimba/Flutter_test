@@ -23,6 +23,7 @@ class App extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
+//list of img & text   
 Widget _listItemBuilder(BuildContext context, int index){
   return Container(
     color: Colors.white,
@@ -59,7 +60,7 @@ Widget _listItemBuilder(BuildContext context, int index){
   }
 }
 
-
+//center hello
 class Hello extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -84,14 +85,29 @@ class RandomWords extends StatefulWidget {
 
 class RandomWordState extends State<RandomWords> {
     final _suggestions = <WordPair>[];
+    final _saved = new Set<WordPair>();
     final _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildRow(WordPair pair) {
+    final bool hasSaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
-      )
+      ),
+      trailing: new Icon(
+        hasSaved?Icons.favorite:Icons.favorite_border,
+        color: hasSaved?Colors.red:Colors.grey,
+      ), 
+      onTap: () {
+        setState(() {
+          if (hasSaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      },
     );
   }
 
@@ -114,8 +130,37 @@ class RandomWordState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Name Generator'),
+        actions: <Widget>[
+          new IconButton(icon: const Icon(Icons.library_books), onPressed: _pushSaved)
+        ],
       ), 
       body: _buildSuggestions(),
     );
+  }
+  void _pushSaved() {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext contex) {
+          final Iterable<ListTile> tiles = _saved.map(
+            (WordPair pair){
+              return new ListTile(title: new Text(
+                pair.asPascalCase,
+                style:_biggerFont,
+              )
+            );
+          },
+        );
+        final List<Widget>divided = ListTile
+        .divideTiles(context: context , tiles: tiles , color: Colors.blueGrey)
+        .toList();
+        
+        return new Scaffold(
+          appBar: new AppBar(
+            title: const Text('Saved Suggestions')
+          ),
+          body: new ListView(children: divided),
+        );
+      })
+    ); 
   }
 }
