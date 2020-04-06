@@ -9,23 +9,23 @@ class Post {
 
 final List<Post> posts = [
   Post(
-    title: '美式音标零基础入门课',
-    imgUrl: 'http://qn-cdn-img.mofunenglish.com/163/470/20191030171610429574000835.jpeg',
+    title: '美式音标入门课',
+    imgUrl: 'http://qn-cdn-img.mofunenglish.com/37/117/20191030171614981430000713.jpeg',
   ),
   Post(
-    title: '21天甩掉字幕看美剧',
-    imgUrl: 'http://qn-cdn-img.mofunenglish.com/218/97/20190729181722976419000144.jpg',
+    title: '甩掉字幕看美剧',
+    imgUrl: 'http://qn-cdn-img.mofunenglish.com/53/427/20190729170902212357000706.jpg',
   ),
   Post(
     title: '时态语法14讲',
-    imgUrl: 'http://qn-cdn-img.mofunenglish.com/59/463/20190729171116916886000634.jpg',
+    imgUrl: 'http://qn-cdn-img.mofunenglish.com/239/240/20190729171109284839000313.jpg',
   ),
   Post(
     title: '懂点英文演讲',
-    imgUrl: 'http://qn-cdn-img.mofunenglish.com/88/349/20190729181928637565000243.jpg',
+    imgUrl: 'http://qn-cdn-img.mofunenglish.com/166/392/20190729181922822355000647.jpg',
   ),
   Post(
     title: '实用情景英语',
-    imgUrl: 'http://qn-cdn-img.mofunenglish.com/44/263/20190729182240094202000449.jpg',
+    imgUrl: 'http://qn-cdn-img.mofunenglish.com/87/43/20190729182233366854000708.jpg',
   )
 ];
