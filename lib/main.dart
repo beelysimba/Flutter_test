@@ -29,6 +29,29 @@ class App extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return BottomBarDemo();
+  }
+}
+
+class BottomBarDemo extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return BottomBarDemoState();
+  }
+}
+
+class BottomBarDemoState extends State<BottomBarDemo> {
+  int currentIndex = 0;
+  String page = 'Home';
+  void _tapBottomBarHandler(int index) {
+    setState(() {
+      currentIndex = index;
+      page = index == 0 ? 'Home':(index==1?'explore':'history'); 
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -53,9 +76,27 @@ class Home extends StatelessWidget {
                 ]),
           ),
           body: TabBarView(children: <Widget>[
-            Icon(Icons.local_activity, size: 128.0, color: Colors.black12),
-            Icon(Icons.local_mall, size: 128.0, color: Colors.black12),
-            Icon(Icons.local_movies, size: 128.0, color: Colors.black12),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+               Icon(Icons.local_activity, size: 128.0, color: Colors.black12),
+               Text(page),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+               Icon(Icons.local_mall, size: 128.0, color: Colors.black12),
+               Text(page),
+               ]
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.local_movies, size: 128.0, color: Colors.black12),
+               Text(page),
+              ],
+            ),
           ]),
           drawer: Drawer(
               child: ListView(padding: EdgeInsets.all(8.0), children: <Widget>[
@@ -95,48 +136,21 @@ class Home extends StatelessWidget {
               onTap: () => Navigator.of(context).pop(),
             ),
           ])),
-          bottomNavigationBar: BottomBarDemo(),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: _tapBottomBarHandler,
+            fixedColor: Colors.lightBlue[280],
+            items: [
+              BottomNavigationBarItem(
+                  title: Text('Home'), icon: Icon(Icons.home)),
+              BottomNavigationBarItem(
+                  title: Text('Explore'), icon: Icon(Icons.explore)),
+              BottomNavigationBarItem(
+                  title: Text('History'), icon: Icon(Icons.history)),
+            ],
+          ),
           //RandomWords(),
         ));
-  }
-}
-
-class BottomBarDemo extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return BottomBarDemoState();
-  }
-}
-
-class BottomBarDemoState extends State<BottomBarDemo> {
-  int currentIndex = 0;
-  String routeName = '/a';
-  void _tapBottomBarHandler(int index) {
-    setState(() {
-      currentIndex = index;
-      if (index!=0) {
-        routeName = index==1?'/b':'/c';
-      }
-      
-      Navigator.of(context).pushNamed(routeName);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: _tapBottomBarHandler,
-        fixedColor: Colors.lightBlue[280],
-        items: [
-          BottomNavigationBarItem(title: Text('Home'), icon: Icon(Icons.home)),
-          BottomNavigationBarItem(
-              title: Text('Explore'), icon: Icon(Icons.explore)),
-          BottomNavigationBarItem(
-              title: Text('History'), icon: Icon(Icons.history)),
-        ],
-        
-        );
   }
 }
 
@@ -145,13 +159,11 @@ class MyPage extends StatelessWidget {
   MyPage(this.labeltext);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text('page'),
       ),
       body: Text(labeltext),
-    
     );
   }
 }
