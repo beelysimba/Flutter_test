@@ -17,12 +17,16 @@ class App extends StatelessWidget {
         highlightColor: Color.fromRGBO(255, 255, 255, 0),
         splashColor: Colors.white70,
       ),
+      routes: <String, WidgetBuilder>{
+        '/a': (BuildContext context) => MyPage('Home'),
+        '/b': (BuildContext context) => MyPage('Explore'),
+        '/c': (BuildContext context) => RandomWords(),
+      },
     );
   }
 }
 
 class Home extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -50,7 +54,7 @@ class Home extends StatelessWidget {
           ),
           body: TabBarView(children: <Widget>[
             Icon(Icons.local_activity, size: 128.0, color: Colors.black12),
-            RandomWords(),
+            Icon(Icons.local_mall, size: 128.0, color: Colors.black12),
             Icon(Icons.local_movies, size: 128.0, color: Colors.black12),
           ]),
           drawer: Drawer(
@@ -106,9 +110,15 @@ class BottomBarDemo extends StatefulWidget {
 
 class BottomBarDemoState extends State<BottomBarDemo> {
   int currentIndex = 0;
+  String routeName = '/a';
   void _tapBottomBarHandler(int index) {
     setState(() {
       currentIndex = index;
+      if (index!=0) {
+        routeName = index==1?'/b':'/c';
+      }
+      
+      Navigator.of(context).pushNamed(routeName);
     });
   }
 
@@ -127,6 +137,22 @@ class BottomBarDemoState extends State<BottomBarDemo> {
         ],
         
         );
+  }
+}
+
+class MyPage extends StatelessWidget {
+  final String labeltext;
+  MyPage(this.labeltext);
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('page'),
+      ),
+      body: Text(labeltext),
+    
+    );
   }
 }
 
@@ -181,13 +207,13 @@ class RandomWordState extends State<RandomWords> {
   Widget build(BuildContext context) {
     final word = WordPair.random();
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Name Generator'),
-      //   actions: <Widget>[
-      //     new IconButton(
-      //         icon: const Icon(Icons.library_books), onPressed: _pushSaved)
-      //   ],
-      // ),
+      appBar: AppBar(
+        title: Text('Name Generator'),
+        actions: <Widget>[
+          new IconButton(
+              icon: const Icon(Icons.library_books), onPressed: _pushSaved)
+        ],
+      ),
       body: _buildSuggestions(),
     );
   }
