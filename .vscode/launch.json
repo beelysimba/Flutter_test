@@ -5,11 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Flutter: Run all Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
+        },
+        {
             "name": "Flutter: Attach to Device",
             "type": "dart",
             "request": "attach"
-        },
-        
+        }, 
         
         {
             "name": "Flutter",
