@@ -1,11 +1,8 @@
 import 'dart:ui';
 import './view/ListView.dart';
 import './view/BottomBar.dart';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:isolate';
 
 void main() => runApp(App());
 
