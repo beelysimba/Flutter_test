@@ -64,12 +64,23 @@ class _StudyPageCourseState extends State<StudyPageCourse> {
   @override
   Widget build(BuildContext context) {
     Widget _buildCourseList(List<Course> list) {
-      final Iterable<ListTile> tiles = list.map(
+      final Iterable<GestureDetector> tiles = list.map(
         (Course course) {
-          return ListTile(
-              leading: Image.network(course.thumbnail.first.file,width: 100, height: 126 ,),
-                title: Text(course.name,style: TextStyle(fontSize: 18.0,),),
-            );
+          return GestureDetector(
+           child: Row(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Image.network(course.thumbnail.first.file,width: 100, height: 126),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom:50),
+                  child: Text(course.name,style: TextStyle(fontSize: 18.0,),),
+                ),
+              ],
+            ),
+            onTap: () => print('click row ${course.name}'),
+           );
         });
       
       final List<Widget> divided = ListTile.divideTiles(context: context, tiles: tiles, color: Colors.blueGrey).toList();
@@ -148,26 +159,24 @@ class _StudyPageProgrammeState extends State<StudyPageProgramme> {
   Widget build(BuildContext context) {
    //collectionView with list
     List<Widget> _makeupMovie(List<Map<String, dynamic>> list) {
-      final Iterable<Column> tiles = list.map(
+      final Iterable<GestureDetector> tiles = list.map(
         (Map pair) {
           var thumbs = pair['thumbnail'][0];
           double ratio = MediaQuery.of(context).devicePixelRatio;
           double width = (MediaQuery.of(context).size.width-30/ratio)/3.0;
-          return Column(
-            children: <Widget>[
-              Container(
+          return GestureDetector(
+            child: Container(
                padding: EdgeInsets.only(top:10,left: 10,bottom: 0),
                 width: width,
                 height: width/2*3+20,
                 child: Column(
                   children:<Widget>[
                   Image.network(thumbs['file'],fit: BoxFit.fitWidth,),
-                  
                   Text(pair['title'],maxLines: 1, ),
                 ],
                 ),
               ),
-            ],
+            onTap: () => print('click item ${pair['title']}'),
           );
         },
       );
@@ -194,7 +203,6 @@ class _StudyPageProgrammeState extends State<StudyPageProgramme> {
         ],
       );
    }
-
 
     return FutureBuilder(
       future: DioManager.getInstance().get(GlobalConfig.ALL_STUDYROUTE, null),
