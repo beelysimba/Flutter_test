@@ -2,7 +2,7 @@
 import '../model/post.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-
+ 
 class ListViewDemo extends StatelessWidget {
   //list of img & text   
 Widget _listItemBuilder(BuildContext context, int index){
