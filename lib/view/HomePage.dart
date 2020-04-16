@@ -37,6 +37,20 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print('Error--$e');
     }
+    // try {
+    //   Response section;
+    //   section = await DioManager.getInstance().get(GlobalConfig.HOT_SECTION, {
+    //     'count': 20,
+    //     'cursor': sectionlist.length > 0 ? sectionlist.length : 0
+    //   });
+    //   if (section.statusCode == 200) {
+    //     return section.data;
+    //   } else {
+    //     throw Exception('request failed');
+    //   }
+    // } catch (e) {
+    //   print('Error--$e');
+    // }
   }
 
   EasyRefresh easyRefresh(var homedata) {
@@ -50,7 +64,7 @@ class _HomePageState extends State<HomePage> {
         sentence = item['list'][0];
       }
     }
-   
+
     return EasyRefresh(
         controller: refresh,
         bottomBouncing: false,
@@ -97,7 +111,7 @@ class _HomePageState extends State<HomePage> {
     //       refresh.callLoad();
     //       // _controler.animateTo(off,
     //       //     duration: Duration(seconds: 2), curve: Curves.bounceIn);
-        
+
     //   }
     // });
     super.initState();
