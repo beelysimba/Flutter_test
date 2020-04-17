@@ -1,5 +1,5 @@
 
-import '../model/post.dart';
+import '../models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
@@ -82,7 +82,7 @@ class RandomWordState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-    final word = WordPair.random();
+    // final word = WordPair.random();
     return Scaffold(
       appBar: AppBar(
         title: Text('Name Generator'),
