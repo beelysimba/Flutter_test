@@ -3,17 +3,17 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter/material.dart';
 import './global_config.dart';
 
 class DioManager {
-  static DioManager _dioManager;
-  static DioManager getInstance() {
-    if (_dioManager == null) {
-      _dioManager = DioManager();
-    }
-    return _dioManager;
-  }
+  BuildContext context;
+  Options _options;
 
+  DioManager([this.context]) {
+    _options = Options(extra: {"context": context});
+  }
+  
   static BaseOptions options = new BaseOptions(
       baseUrl: 'https://www.mofunenglish.com',
       connectTimeout: 5000,
@@ -28,15 +28,14 @@ class DioManager {
       contentType: Headers.formUrlEncodedContentType,
     );
 
-  Dio  dio ;
+  static Dio dio = Dio(options);
   
   void request(String url, Function sucCallBack, Function errCallBack,
       [String method, Map<String, dynamic> params]) {}
 
-  DioManager() {
+  static void preset() {
 //BaseOptions、Options、RequestOptions 都可以配置参数，优先级别依次递增，且可以根据优先级别覆盖参数
-    dio = new Dio(options);
-    dio.interceptors.add(LogInterceptor(requestBody: GlobalConfig.isDebug));
+    dio.interceptors.add(Global.netcache);
     dio.interceptors.add(CookieManager(CookieJar()));
   }
 
@@ -94,10 +93,10 @@ class DioManager {
           _error(errCallBack, error.message);
         }
 
-        if (GlobalConfig.isDebug) {
-          print('请求异常url: ' + url);
-          print('请求头: ' + dio.options.headers.toString());
-        }
+        // if (GlobalConfig.isDebug) {
+        //   print('请求异常url: ' + url);
+        //   print('请求头: ' + dio.options.headers.toString());
+        // }
 
         String dataStr = json.encode(response.data);
         Map<String, dynamic> dataMap = json.decode(dataStr);

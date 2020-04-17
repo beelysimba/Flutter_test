@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../request/requestManager.dart';
+import '../request/DioManager.dart';
 import '../request/global_config.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
   Future getHomeData() async {
     try {
       Response response;
-      response =
-          await DioManager.getInstance().get(GlobalConfig.APP_HOME, null);
+      response = await DioManager().get(GlobalConfig.APP_HOME, null);
+
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
             sectionlist != null ? SectionVideo(list: sectionlist) : Divider(),
           ],
         ),
-        onLoad: () async {
-          await DioManager.getInstance().get(GlobalConfig.HOT_SECTION, {
+        onLoad: () async {  
+          await DioManager().get(GlobalConfig.HOT_SECTION, {
             'count': 20,
             'cursor': sectionlist.length > 0 ? sectionlist.length : 0
           }).then((result) {
@@ -149,8 +149,7 @@ class HomePage1 extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 FutureBuilder(
-                    future: DioManager.getInstance()
-                        .get(GlobalConfig.APP_HOME, null),
+                    future: DioManager().get(GlobalConfig.APP_HOME, null),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done &&
                           snapshot.hasData) {
@@ -204,7 +203,7 @@ class HomePage1 extends StatelessWidget {
                       );
                     }),
                 FutureBuilder(
-                  future: DioManager.getInstance().get(GlobalConfig.HOT_SECTION,
+                  future: DioManager().get(GlobalConfig.HOT_SECTION,
                       {'count': 20, 'cursor': list.length}),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.done &&

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../request/requestManager.dart';
+import '../request/DioManager.dart';
 import '../request/global_config.dart';
-import '../model/course_model.dart';
+import '../models/course_model.dart';
 
 class StudyPage extends StatelessWidget {
   @override
@@ -91,7 +91,7 @@ class _StudyPageCourseState extends State<StudyPageCourse> {
 
     return Container(
       child: FutureBuilder(
-        future: DioManager.getInstance().get(GlobalConfig.ALL_COURSE, null),
+        future: DioManager().get(GlobalConfig.ALL_COURSE, null),
         initialData: courselist,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           //请求完成
@@ -205,7 +205,7 @@ class _StudyPageProgrammeState extends State<StudyPageProgramme> {
    }
 
     return FutureBuilder(
-      future: DioManager.getInstance().get(GlobalConfig.ALL_STUDYROUTE, null),
+      future: DioManager().get(GlobalConfig.ALL_STUDYROUTE, null),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
