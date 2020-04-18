@@ -74,6 +74,12 @@ class DioManager {
     return userId;
   }
 
+  Future<User> userInfo() async {
+    var result = await dio.get(GlobalConfig.USER_PROFILE);
+    User user = User.fromJson(result.data);
+    Global.profile.user = user;
+    return user;
+  }
 //handler network
   _error(Function errorCallBack, String error) {
     if (errorCallBack != null) {

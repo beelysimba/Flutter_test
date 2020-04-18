@@ -19,7 +19,7 @@ class _LoginRouteState extends State<LoginRoute> {
   bool _nameAutoFocus = true;
 
   @override
-  void initState() {
+  void initState() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
     // 自动填充上次登录的用户名，填充后将焦点定位到密码输入框
     _unameController.text = Global.profile.lastLogin;
     if (_unameController.text != null) {
@@ -128,7 +128,9 @@ class _LoginRouteState extends State<LoginRoute> {
       }
 
       if (user != null) {
+          DioManager().userInfo();
         // 返回
+          showToast('Suc login');
         Navigator.of(context).pop();
       }
     }

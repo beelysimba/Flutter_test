@@ -17,6 +17,7 @@ class GlobalConfig {
     static const String APP_HOME = '/api3/app_home/show_v11?';
     static const String HOT_SECTION = '/api3/ranking/hot_section?';
     static const String USER_LOGIN = '/api3/user/login?';
+    static const String USER_PROFILE = '/api3/user/profile?';
   }
 
   const _themes = <MaterialColor>[
