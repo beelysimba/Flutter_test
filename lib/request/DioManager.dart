@@ -10,10 +10,8 @@ class DioManager {
   BuildContext context;
   Options _options;
   DioManager([this.context]) {
-    _options = Options(extra: {'context':context});
-  
+    _options = Options(extra: {'context': context});
   }
-
 
   static BaseOptions options = new BaseOptions(
     baseUrl: 'https://www.mofunenglish.com',
@@ -29,57 +27,69 @@ class DioManager {
     contentType: Headers.formUrlEncodedContentType,
   );
 
+  static Map<String, dynamic> paraGet = {'v': 'ios_11.0.9'};
+
   static Dio dio = Dio(options);
 
   static void preSet() {
- // 添加缓存插件
+    // 添加缓存插件
     dio.interceptors.add(Global.netcache);
     // 设置用户token（可能为null，代表未登录）
     dio.options.headers[HttpHeaders.authorizationHeader] = Global.profile.token;
-
   }
 
   void request(String url, Function sucCallBack, Function errCallBack,
       [String method, Map<String, dynamic> params]) {}
 
-
   Future get(String url, Map<String, dynamic> params) async {
     if (params == null) {
-      params = Map.from({
-        'v': 'ios_11.0.9'
-      });
+      params = paraGet;
     } else {
-      params.addEntries([
-        // MapEntry('token', '8cfd69395419f55940580ec105c524da'),
-        MapEntry('v', 'ios_11.0.9')
-      ]);
+      params.addAll(paraGet);
     }
-    return dio.get(url, queryParameters: params);
+    return dio.get(url,
+        options: _options.merge(contentType: Headers.jsonContentType, extra: {
+          "noCache": false, //接口缓存
+        }),
+        queryParameters: params);
   }
 
   Future<UserId> login(String name, String pwd) async {
-    Map<String, dynamic> para = {'account': name, 'password': pwd};
-
+    Map<String, dynamic> para = {
+      'account': name,
+      'password': pwd,
+    };
     var result = await dio.post(
       GlobalConfig.USER_LOGIN,
-      queryParameters: para,
+      queryParameters: paraGet,
+      data: para,
+      options: _options.merge(contentType: Headers.formUrlEncodedContentType),
     );
     //登录成功后更新公共头，带上用户信息
-    UserId userId = UserId.fromJson(result.data);
-    String basic = "userid:_$userId.id&token:_$userId.token";
-    dio.options.headers[HttpHeaders.authorizationHeader] = basic;
+    var data = json.decode(result.data);
+    UserId userId = UserId.fromJson(data);
+    paraGet['user_id'] = userId.id;
+    paraGet['token'] = userId.token;
+
+    // {'userid':userId.id,'token':userId.token,};
+    // String basic = "userid:_$userId.id&token:_$userId.token";
+    // dio.options.headers[HttpHeaders.authorizationHeader] = basic;
     //清空缓存并更新
+
     Global.netcache.cache.clear();
     Global.profile.token = userId.token;
+    Global.profile.lastLogin = DateTime.now().toString();
     return userId;
   }
 
   Future<User> userInfo() async {
-    var result = await dio.get(GlobalConfig.USER_PROFILE);
-    User user = User.fromJson(result.data);
+    var result = await DioManager().get(GlobalConfig.USER_PROFILE, null);
+    var data = json.decode(result.data);
+    User user = User.fromJson(data);
     Global.profile.user = user;
     return user;
   }
+
 //handler network
   _error(Function errorCallBack, String error) {
     if (errorCallBack != null) {
@@ -89,12 +99,11 @@ class DioManager {
     void request(String url, Function sucCallBack, Function errCallBack,
         CancelToken cancelToken,
         [String method, Map<String, dynamic> params]) async {
-      params.addEntries([
-        MapEntry('userid', 3465972),
-        MapEntry('token', '8cfd69395419f55940580ec105c524da'),
-        MapEntry('v', 'ios_11.0.9')
-      ]);
-
+      if (params == null || params.isEmpty) {
+        params = paraGet;
+      } else {
+        params.addAll(paraGet);
+      }
       Response response;
 
       try {

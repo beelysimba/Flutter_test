@@ -14,7 +14,7 @@ class BottomBarDemoState extends State<BottomBarDemo> {
   final List _pages = [
     HomePage(),
     StudyPage(),
-    SquarePage(),
+    PersonPage(),
   ];
   
   int currentIndex = 0;
@@ -49,7 +49,7 @@ class BottomBarDemoState extends State<BottomBarDemo> {
               BottomNavigationBarItem(
                   title: Text('学习'), icon: Icon(Icons.my_location)),
               BottomNavigationBarItem(
-                  title: Text('广场'), icon: Icon(Icons.message)),
+                  title: Text('个人'), icon: Icon(Icons.person)),
             ],
           ),
           body: currentpage,
