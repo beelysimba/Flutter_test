@@ -22,7 +22,7 @@ class _PersonPageState extends State<PersonPage> {
               child: Text('login'),
               onPressed: () async {
                 var res = await Navigator.of(context).pushNamed('/login');
-                if (res!=null) {
+                if (res!='failed') {
                   setState(() {
                     isLogin = true;
                   });

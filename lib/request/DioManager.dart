@@ -78,7 +78,7 @@ class DioManager {
 
     Global.netcache.cache.clear();
     Global.profile.token = userId.token;
-    Global.profile.lastLogin = DateTime.now().toString();
+    Global.profile.lastLogin = name;
     return userId;
   }
 

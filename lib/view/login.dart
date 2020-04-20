@@ -46,42 +46,42 @@ class _LoginRouteState extends State<LoginRoute> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // TextFormField(
-                  //     autofocus: _nameAutoFocus,
-                  //     controller: _unameController,
-                  //     decoration: InputDecoration(
-                  //       // labelText: gm.userName,
-                  //       // hintText: gm.userName,
-                  //       prefixIcon: Icon(Icons.person),
-                  //     ),
-                  //     // 校验用户名（不能为空）
-                  //     // validator: (v) {
-                  //     //   return v.trim().isNotEmpty ? null : gm.userNameRequired;
-                  //     // }
-                  //     ),
-                  // TextFormField(
-                  //   controller: _pwdController,
-                  //   autofocus: !_nameAutoFocus,
-                  //   decoration: InputDecoration(
-                  //       // labelText: gm.password,
-                  //       // hintText: gm.password,
-                  //       prefixIcon: Icon(Icons.lock),
-                  //       suffixIcon: IconButton(
-                  //         icon: Icon(pwdShow
-                  //             ? Icons.visibility_off
-                  //             : Icons.visibility),
-                  //         onPressed: () {
-                  //           setState(() {
-                  //             pwdShow = !pwdShow;
-                  //           });
-                  //         },
-                  //       )),
-                  //   obscureText: !pwdShow,
-                  //   //校验密码（不能为空）
-                  //   // validator: (v) {
-                  //   //   return v.trim().isNotEmpty ? null : gm.passwordRequired;
-                  //   // },
-                  // ),
+                  TextFormField(
+                      autofocus: _nameAutoFocus,
+                      controller: _unameController,
+                      decoration: InputDecoration(
+                        // labelText: gm.userName,
+                        // hintText: gm.userName,
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      // 校验用户名（不能为空）
+                      validator: (v) {
+                        return v.trim().isNotEmpty ? null : gm.userNameRequired;
+                      }
+                      ),
+                  TextFormField(
+                    controller: _pwdController,
+                    autofocus: !_nameAutoFocus,
+                    decoration: InputDecoration(
+                        // labelText: gm.password,
+                        // hintText: gm.password,
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(pwdShow
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              pwdShow = !pwdShow;
+                            });
+                          },
+                        )),
+                    obscureText: !pwdShow,
+                    //校验密码（不能为空）
+                    validator: (v) {
+                      return v.trim().isNotEmpty ? null : gm.passwordRequired;
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 85),
                     child: ConstrainedBox(
@@ -110,7 +110,7 @@ class _LoginRouteState extends State<LoginRoute> {
       UserId user;
       User userInfo;
       try {
-        user = await DioManager().login('18005035517', '123456');
+        user = await DioManager().login(_unameController.text, _pwdController.text);
         // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
         // Provider.of<UserModel>(context, listen: false).user = user;
       } catch (e) {
@@ -133,12 +133,13 @@ class _LoginRouteState extends State<LoginRoute> {
           print(e.toString());
           showToast(e.toString());
         } finally {
-          String tip = userInfo != null ? 'update user' : null;
+          String tip = userInfo != null ? userInfo.intro : 'failed';
           Navigator.of(context).pop(tip);
+                showToast(tip);
+
         }
       }
       // 返回
-      showToast(userInfo.intro);
     }
   }
 }
