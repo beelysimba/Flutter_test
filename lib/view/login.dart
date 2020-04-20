@@ -55,9 +55,9 @@ class _LoginRouteState extends State<LoginRoute> {
                         prefixIcon: Icon(Icons.person),
                       ),
                       // 校验用户名（不能为空）
-                      validator: (v) {
-                        return v.trim().isNotEmpty ? null : gm.userNameRequired;
-                      }
+                      // validator: (v) {
+                      //   return v.trim().isNotEmpty ? null : gm.userNameRequired;
+                      // }
                       ),
                   TextFormField(
                     controller: _pwdController,
@@ -78,9 +78,9 @@ class _LoginRouteState extends State<LoginRoute> {
                         )),
                     obscureText: !pwdShow,
                     //校验密码（不能为空）
-                    validator: (v) {
-                      return v.trim().isNotEmpty ? null : gm.passwordRequired;
-                    },
+                    // validator: (v) {
+                    //   return v.trim().isNotEmpty ? null : gm.passwordRequired;
+                    // },
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 85),

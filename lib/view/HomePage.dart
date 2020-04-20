@@ -310,7 +310,7 @@ class DailySentence extends StatelessWidget {
           color: Colors.black12,
         ),
         Container(
-          height: width / 16 * 9 + 60,
+          height: width / 16 * 9 + 61,
           margin: EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

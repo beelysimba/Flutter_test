@@ -1,12 +1,8 @@
 import 'dart:ui';
-import 'package:testapp/view/HomePage.dart';
-import 'package:testapp/view/SquarePage.dart';
-import 'package:testapp/view/StudyPage.dart';
-import 'package:testapp/view/login.dart';
-
-import './view/BottomBar.dart';
-
+import './view/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import './i18n/chDemoLocation.dart';
 
 void main() => runApp(App());
 
@@ -14,6 +10,20 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // locale: Locale('en'),
+      localeResolutionCallback: (Locale locale, Iterable<Locale> supported){
+          return Locale('en','US');
+      },
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        ChDemoLocationDeleagte(),
+      ],
+      supportedLocales: [
+        Locale('en','US'),
+        Locale('zh','CN'),
+        Locale('ja','JP'),
+      ],
       debugShowCheckedModeBanner: false,
       // home: Home(),
       theme: ThemeData(

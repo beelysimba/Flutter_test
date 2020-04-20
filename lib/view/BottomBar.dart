@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './HomePage.dart';
 import './StudyPage.dart';
-import './SquarePage.dart';
+import './PersonPage.dart';
 
 class BottomBarDemo extends StatefulWidget {
   @override
