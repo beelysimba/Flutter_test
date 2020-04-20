@@ -1,9 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:testapp/models/index.dart';
 import 'package:testapp/request/global_config.dart';
 import 'package:intl/intl.dart';
+import '../i18n/locations.dart';
 import '../i18n/chDemoLocation.dart';
-
 class PersonPage extends StatefulWidget {
   @override
   _PersonPageState createState() => _PersonPageState();
@@ -31,8 +32,8 @@ class _PersonPageState extends State<PersonPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            ChDemoLocation.of(context).title,
-            // Localizations.of(context, ChDemoLocation).title,
+            // locale.toString(),
+            DemoLocation.of(context).greet(isLogin?Global.profile.user.name:'游客'),
           ),
         ),
         body: Column(

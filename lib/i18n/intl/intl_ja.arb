@@ -1,0 +1,17 @@
+{
+  "@@last_modified": "2020-04-20T19:42:12.431973",
+  "title": "こんにちは",
+  "@title": {
+    "description": "demo localizations",
+    "type": "text",
+    "placeholders": {}
+  },
+  "greet": "こんにちは {name}",
+  "@greet": {
+    "description": "greet someone",
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  }
+}

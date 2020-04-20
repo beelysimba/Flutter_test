@@ -2,7 +2,7 @@ import 'dart:ui';
 import './view/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import './i18n/chDemoLocation.dart';
+import './i18n/locations.dart';
 
 void main() => runApp(App());
 
@@ -10,14 +10,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // locale: Locale('en'),
-      localeResolutionCallback: (Locale locale, Iterable<Locale> supported){
-          return Locale('en','US');
-      },
+      locale: Locale('ja'),
+      // localeResolutionCallback: (Locale locale, Iterable<Locale> supported){
+      //     return Locale('en','US');
+      // },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        ChDemoLocationDeleagte(),
+        DemoLocationDeleagte(),
       ],
       supportedLocales: [
         Locale('en','US'),
