@@ -17,11 +17,17 @@ class _PersonPageState extends State<PersonPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          isLogin ? UserInfoView() : Text('login'),
+          isLogin ? UserInfoView() : Divider(),
           RaisedButton(
               child: Text('login'),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/login');
+              onPressed: () async {
+                var res = await Navigator.of(context).pushNamed('/login');
+                if (res!=null) {
+                  setState(() {
+                    isLogin = true;
+                  });
+                  print('back value $res');
+                }
               }),
         ]));
   }
@@ -32,14 +38,12 @@ class UserInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircleAvatar(backgroundImage: NetworkImage(user.photo['80x80'])),
-
-      // child: ListTile(
-      //   leading: CircleAvatar(
-      //       backgroundImage: NetworkImage(user.photo['80x80'])),
-      //   title: Text(user.name),
-      //   subtitle: Text(user.intro),
-      // ),
+      child: ListTile(
+        leading: CircleAvatar(
+            backgroundImage: NetworkImage(user.photo['80x80'])),
+        title: Text(user.name),
+        subtitle: Text(user.intro),
+      ),
     );
   }
 }
