@@ -32,12 +32,10 @@ class ChDemoLocationDeleagte extends LocalizationsDelegate<ChDemoLocation>  {
 
   @override
   bool isSupported(Locale locale) {
-    // TODO: implement isSupported
     return true;
   }
   @override
   bool shouldReload(LocalizationsDelegate<ChDemoLocation> old) {
-    // TODO: implement shouldReload
     return false;
   }
 }

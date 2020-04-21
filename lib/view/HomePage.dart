@@ -337,7 +337,7 @@ class SectionVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = (MediaQuery.of(context).size.width - 40) / 2.0;
+    // double width = (MediaQuery.of(context).size.width - 40) / 2.0;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

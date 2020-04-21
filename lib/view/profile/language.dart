@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/i18n/locations.dart';
+import 'package:testapp/view/profile/profileNotifier.dart';
+
+class LanguageRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var color = Theme.of(context).primaryColor;
+    var localeModel = Provider.of<LocaleModel>(context,listen: false);
+    var gm = DemoLocation.of(context);
+    Widget _buildLanguageItem(String lan, value) {
+      return ListTile(
+        title: Text(
+          lan,
+          // 对APP当前语言进行高亮显示
+          style: TextStyle(color: localeModel.locale == value ? color : null),
+        ),
+        trailing:
+            localeModel.locale == value ? Icon(Icons.done, color: color) : null,
+        onTap: () {
+          // 此行代码会通知MaterialApp重新build
+          localeModel.locale = value;
+        },
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(gm.greet('')),
+      ),
+      body: ListView(
+        children: <Widget>[
+          _buildLanguageItem("中文简体", "zh_CN"),
+          _buildLanguageItem("English", "en_US"),
+          _buildLanguageItem("日本語", "ja_JP"),
+        ],
+      ),
+    );
+  }
+}

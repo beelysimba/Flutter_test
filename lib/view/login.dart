@@ -136,7 +136,10 @@ class _LoginRouteState extends State<LoginRoute> {
           String tip = userInfo != null ? userInfo.intro : 'failed';
           Navigator.of(context).pop(tip);
                 showToast(tip);
-
+          if (userInfo!=null) {
+            Global.profile.user = userInfo;
+            Global.saveProfile();
+          }
         }
       }
       // 返回

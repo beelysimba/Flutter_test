@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testapp/request/global_config.dart';
 import './HomePage.dart';
 import './StudyPage.dart';
 import './PersonPage.dart';
@@ -38,11 +39,11 @@ class BottomBarDemoState extends State<BottomBarDemo> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-          backgroundColor: Colors.grey[200],
+          // backgroundColor: Color(Global.profile.theme),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: _tapBottomBarHandler,
-            fixedColor: Colors.lightBlue,
+            fixedColor:  Color(Global.profile.theme),
             items: [
               BottomNavigationBarItem(
                   title: Text('探索'), icon: Icon(Icons.explore)),
