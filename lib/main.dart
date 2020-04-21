@@ -1,10 +1,18 @@
 import 'dart:ui';
+import 'package:testapp/request/global_config.dart';
+
 import './view/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import './i18n/locations.dart';
 
-void main() => runApp(App());
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // 此处调用是为了全局初始化 global.init(),参考：https://book.flutterchina.club/chapter14/flutter_app_startup.html
+  await Global.init().then((e) {
+    runApp(new App());
+  });
+}
 
 class App extends StatelessWidget {
   @override

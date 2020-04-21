@@ -27,7 +27,7 @@ class _PersonPageState extends State<PersonPage> {
 
   @override
   Widget build(BuildContext context) {
-    Locale locale = Localizations.localeOf(context);
+    // Locale locale = Localizations.localeOf(context);
 
     return Scaffold(
         appBar: AppBar(
